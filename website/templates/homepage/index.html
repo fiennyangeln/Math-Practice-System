@@ -1,7 +1,7 @@
 <!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
-<a href="{% url 'index' %}">2012 Archive</a>
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -14,7 +14,14 @@
 
     <title>Math Practice System</title>
 </head>
+
 <body>
+<div class="btn-block">
+    <div class="jumbotron jumbotron-fluid text-center">
+        <h1>Math Practice System</h1>
+        <a href="{% url 'show_q' %}">Click here to start!</a>
+    </div>
+</div>
     <!-- Put it below to make sure page load first, speed up render, prevent unresponsive stalls -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

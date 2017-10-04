@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-
+from website.views import *
 urlpatterns = [
+    url(r'^$',homepage),
+    url(r'^dashboard/$',show_question,name='show_q'),
     url(r'^admin/', admin.site.urls),
 ]
