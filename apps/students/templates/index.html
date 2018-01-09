@@ -3,11 +3,7 @@
 {% block body %}
 <span> Education Level</span>
 <select class="ui dropdown" onChange="window.location.href=this.value">
-  <option value="{% url 'students_switchedu' 0 %}"
-    {% if request.session.edu_id %}
-    {% else %}
-    selected
-    {% endif %}>
+  <option value="{% url 'students_switchedu' 0 %}">
     ----
   </option>
   {% for edu in edu_level %}
@@ -19,4 +15,35 @@
   </option>
   {% endfor %}
 </select>
+<br><br>
+<div class="ui compact labeled icon menu">
+  <a class="item" href="{% url 'students_qa' %}">
+    <i class="gamepad icon"></i>
+    Q & A
+  </a>
+  <a class="item" href="{% url 'students_search' %}">
+    <i class="video camera icon"></i>
+    Search
+  </a>
+  <a class="item" href="{% url 'students_exercise' %}">
+    <i class="video play icon"></i>
+    Exercise
+  </a>
+  <a class="item" href="{% url 'students_paper' %}">
+    <i class="gamepad icon"></i>
+    PaperTest
+  </a>
+  <a class="item" href="{% url 'students_concept' %}">
+    <i class="video camera icon"></i>
+    Concept
+  </a>
+  <a class="item" href="{% url 'students_practice' %}">
+    <i class="video play icon"></i>
+    Practice
+  </a>
+  <a class="item" href="{% url 'students_quiz' %}">
+    <i class="video play icon"></i>
+    Quiz
+  </a>
+</div>
 {% endblock body %}
