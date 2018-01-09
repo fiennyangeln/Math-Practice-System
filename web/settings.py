@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'apps.students.apps.StudentsConfig',
+    'apps.commons.apps.CommonsConfig',
 ]
 
 MIDDLEWARE = [
@@ -51,7 +53,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'website.urls'
+ROOT_URLCONF = 'web.urls'
 
 TEMPLATES = [
     {
@@ -69,7 +71,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'website.wsgi.application'
+WSGI_APPLICATION = 'web.wsgi.application'
 
 
 # Database
@@ -84,7 +86,6 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'math_practice',
         'USER': 'root',
-        # 'PASSWORD': '#L1s8p2h1u9c93@'
         'PASSWORD': ''
     }
 }
@@ -202,3 +203,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS =[
+    os.path.join(BASE_DIR, "static"),
+]

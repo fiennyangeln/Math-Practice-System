@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<span> Education Level</span>
+<select class="ui dropdown" onChange="window.location.href=this.value">
+  <option value="{% url 'students_switchedu' 0 %}"
+    {% if request.session.edu_id %}
+    {% else %}
+    selected
+    {% endif %}>
+    ----
+  </option>
+  {% for edu in edu_level %}
+  <option value="{% url 'students_switchedu' edu.id %}"
+    {% if request.session.edu_id == edu.id %}
+    selected
+    {% endif %}>
+    {{ edu.name }}
+  </option>
+  {% endfor %}
+</select>
+{% endblock body %}
