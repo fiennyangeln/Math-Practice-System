@@ -8,7 +8,11 @@ from .controllers.quiz_views import QuizView
 from .controllers.paper_views import PaperView
 
 urlpatterns = [
-    url(r'^$', BaseView.dashboard, name="students_home"),
+    url(r'^$', BaseView.log_in, name="default"),
+    url(r'^login/$',BaseView.log_in, name="students_login"),
+    url(r'^logout/$',BaseView.log_out, name="students_logout"),
+    url (r'^register/$',BaseView.register,name="students_register"),
+    url(r'^home/$', BaseView.dashboard, name="students_home"),
     url(r'^switch_edu/(?P<edu_id>[0-9]+)/$', BaseView.switch_edu, name="students_switchedu"),
     url(r'^switch_edu/$', BaseView.switch_edu, name="students_switchedu"),
     url(r'^concepts/$', ConceptView.dashboard, name="students_concept"),
