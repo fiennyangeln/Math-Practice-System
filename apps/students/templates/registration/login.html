@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<form method="post">
+  <div class="ui center aligned">
+    <div class="two wide column"></div>
+
+    <div class="twelve wide column">
+
+      {% csrf_token %}
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <div class="modal-body">
+            <div class="field">
+              <div class="ui left icon input">
+                <i class="user icon"></i>
+                <input type="text" class="form-control" placeholder="Username" name="username">
+              </div>
+            </div> <!-- /.form-group -->
+
+            <div class="field">
+              <div class="ui left icon input">
+                <i class="lock icon"></i>
+                <input type="password" class="form-control" placeholder="Password" name="password">
+              </div> <!-- /.input-group -->
+            </div> <!-- /.form-group -->
+
+            <input type="hidden" name="next" value="{% url 'students_home' %}">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox"> Remember me
+              </label>
+            </div> <!-- /.checkbox -->
+
+            <div class="form-group">
+              <div class="input-group center-block text-center">
+                <a href="/students/register/">Not a member ? Register here !</a>
+              </div> <!-- /.input-group -->
+            </div> <!-- /.form-group -->
+          </div> <!-- /.modal-body -->
+
+            <button class="ui fluid submit button">Sign In</button>
+
+        </div><!-- /.modal-content -->
+
+      </div><!-- /.modal-dialog -->
+    </div>
+
+    <div class="two wide column"></div>
+  </div>
+</form>
+
+{% endblock %}

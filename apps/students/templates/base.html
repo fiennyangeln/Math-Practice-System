@@ -17,15 +17,36 @@
 <body>
 <div class="btn-block">
     <div class="jumbotron jumbotron-fluid text-center">
-        <h1>Math Practice System</h1>
-{% block body %}
-{% endblock %}
+      <h1>Math Practice System</h1>
+      <a href="/students/logout">Logout</a>
+      {% block messages %}
+        {% if messages %}
+          {% for message in messages %}
+          <div class="ui {{ message.tags }} message">
+            <i class="close icon"></i>
+              {{ message }}
+          </div>
+          {% endfor %}
+        {% endif %}
+      {% endblock %}
+
+      {% block body %}
+      {% endblock %}
     </div>
 </div>
     <!-- Put it below to make sure page load first, speed up render, prevent unresponsive stalls -->
     <script src="{% static 'js/jquery-3.2.1.js'%}" type= "text/javascript"></script>
     <script src="{% static 'semanticui/semantic.js' %}" type = "text/javascript"></script>
-  <!-- import bootscrap javascript -->
+    <script type="text/javascript">
+        $('.message .close')
+      .on('click', function() {
+        $(this)
+          .closest('.message')
+          .transition('fade')
+        ;
+      })
+    ;
+    </script>
 </body>
 
 </html>

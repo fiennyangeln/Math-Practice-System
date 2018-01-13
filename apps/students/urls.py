@@ -6,6 +6,7 @@ from .controllers.exercise_views import ExerciseView
 from .controllers.practice_views import PracticeView
 from .controllers.quiz_views import QuizView
 from .controllers.paper_views import PaperView
+from django.contrib.auth.views import LoginView
 
 urlpatterns = [
     url(r'^$', BaseView.log_in, name="default"),

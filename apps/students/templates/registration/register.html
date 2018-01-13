@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<form method="post" action="/students/register/">
+
+  {% csrf_token %}
+
+ {% for field in form %}
+ <p>
+   {{ field.label_tag }}<br>
+   {{ field }}
+   {% for error in field.errors %}
+     <p style="color: red">{{ error }}</p>
+   {% endfor %}
+ </p>
+{% endfor %}
+    <a href="/students/login_student/">Already registered ? Log in here !</a>
+    <button class="ui fluid submit button">Register</button>
+</form>
+
+{% endblock %}
