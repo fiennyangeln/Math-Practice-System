@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 
 {% block body %}
+<div class="three wide column"></div>
+
+<div class="ten wide column">
 <span> Education Level</span>
 <select class="ui dropdown" onChange="window.location.href=this.value">
   <option value="{% url 'students_switchedu' 0 %}">
@@ -46,4 +49,7 @@
     Quiz
   </a>
 </div>
+</div>
+<div class="three wide column"></div>
+
 {% endblock body %}

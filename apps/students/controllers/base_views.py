@@ -37,6 +37,7 @@ class BaseView():
             if form.is_valid():
                 form.save()
                 messages.add_message(request, messages.SUCCESS, "User created successfully, Please Login")
+                # TODO : does user needs to be superuser/staff
                 return redirect('/students/login')
         else:
             form = UserCreationForm()

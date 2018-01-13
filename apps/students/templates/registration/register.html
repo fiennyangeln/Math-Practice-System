@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 
 {% block body %}
+<div class="two wide column"></div>
+
+<div class="twelve wide column">
 <form method="post" action="/students/register/">
 
   {% csrf_token %}
@@ -14,8 +17,10 @@
    {% endfor %}
  </p>
 {% endfor %}
-    <a href="/students/login_student/">Already registered ? Log in here !</a>
+    <a href="/students/login/">Already registered ? Log in here !</a>
     <button class="ui fluid submit button">Register</button>
 </form>
+</div>
+<div class="two wide column"></div>
 
 {% endblock %}

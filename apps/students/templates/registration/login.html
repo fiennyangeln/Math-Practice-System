@@ -2,9 +2,8 @@
 
 {% block body %}
 <form method="post">
-  <div class="ui center aligned">
+  <div class="ui center aligned grid">
     <div class="two wide column"></div>
-
     <div class="twelve wide column">
 
       {% csrf_token %}
@@ -42,9 +41,9 @@
 
             <button class="ui fluid submit button">Sign In</button>
 
-        </div><!-- /.modal-content -->
+        </div>
 
-      </div><!-- /.modal-dialog -->
+      </div>
     </div>
 
     <div class="two wide column"></div>
