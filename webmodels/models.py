@@ -1,14 +1,10 @@
 from django.db import models
 from ckeditor.fields import RichTextField
-
+from ckeditor_uploader.fields import RichTextUploadingField
+from .constants import *
+from django.contrib.auth.models import User
+from datetime import datetime
 # Create your models here.
-class Question(models.Model):
-    content = RichTextField()
-    solution = RichTextField()
-    answer = RichTextField(default="Test")
-    def __str__(self):
-        return u'%s. %s' %(self.id,self.content)
-
 class EducationLevel(models.Model):
     def __str__(self):
         return self.name
@@ -153,137 +149,137 @@ class Question(models.Model):
     def get_answers(self):
         return AnswerQuestion.objects.filter(question=self)
 
-    class AnswerPart(models.Model):
-        """
-        List of AnswerPart
-        """
-        part_name = models.CharField(max_length=1, choices=PARTS)
-        part_content = RichTextField()
-        part_respone_type = models.CharField(
-            max_length=10,
-            choices=RESPONSE_TYPES,
-            default="4")
-        subpart_name_1 = models.CharField(max_length=10, null=True, blank=True)
-        subpart_content_1 = RichTextField(null=True, blank=True)
-        respone_type_1 = models.CharField(
-            max_length=10,
-            choices=RESPONSE_TYPES,
-            default="4", null=True, blank=True)
-        subpart_name_2 = models.CharField(max_length=10, null=True, blank=True)
-        subpart_content_2 = RichTextField(null=True, blank=True)
-        respone_type_2 = models.CharField(
-            max_length=10,
-            choices=RESPONSE_TYPES,
-            default="4", null=True, blank=True)
-        subpart_name_3 = models.CharField(max_length=10, null=True, blank=True)
-        subpart_content_3 = RichTextField(null=True, blank=True)
-        respone_type_3 = models.CharField(
-            max_length=10,
-            choices=RESPONSE_TYPES,
-            default="4", null=True, blank=True)
-        subpart_name_4 = models.CharField(max_length=10, null=True, blank=True)
-        subpart_content_4 = RichTextField(null=True, blank=True)
-        respone_type_4 = models.CharField(
-            max_length=10,
-            choices=RESPONSE_TYPES,
-            default="4", null=True, blank=True)
+class AnswerPart(models.Model):
+    """
+    List of AnswerPart
+    """
+    part_name = models.CharField(max_length=1, choices=PARTS)
+    part_content = RichTextField()
+    part_respone_type = models.CharField(
+        max_length=10,
+        choices=RESPONSE_TYPES,
+        default="4")
+    subpart_name_1 = models.CharField(max_length=10, null=True, blank=True)
+    subpart_content_1 = RichTextField(null=True, blank=True)
+    respone_type_1 = models.CharField(
+        max_length=10,
+        choices=RESPONSE_TYPES,
+        default="4", null=True, blank=True)
+    subpart_name_2 = models.CharField(max_length=10, null=True, blank=True)
+    subpart_content_2 = RichTextField(null=True, blank=True)
+    respone_type_2 = models.CharField(
+        max_length=10,
+        choices=RESPONSE_TYPES,
+        default="4", null=True, blank=True)
+    subpart_name_3 = models.CharField(max_length=10, null=True, blank=True)
+    subpart_content_3 = RichTextField(null=True, blank=True)
+    respone_type_3 = models.CharField(
+        max_length=10,
+        choices=RESPONSE_TYPES,
+        default="4", null=True, blank=True)
+    subpart_name_4 = models.CharField(max_length=10, null=True, blank=True)
+    subpart_content_4 = RichTextField(null=True, blank=True)
+    respone_type_4 = models.CharField(
+        max_length=10,
+        choices=RESPONSE_TYPES,
+        default="4", null=True, blank=True)
 
-        question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
 
-        created_at = models.DateTimeField(auto_now_add=True)
-        updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
-    class AnswerQuestion(models.Model):
-        """
-        List of answers of question by user
-        """
-        content = RichTextUploadingField()
+class AnswerQuestion(models.Model):
+    """
+    List of answers of question by user
+    """
+    content = RichTextUploadingField()
 
-        user = models.ForeignKey(User, on_delete=models.CASCADE)
-        question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
 
-        created_at = models.DateTimeField(auto_now_add=True)
-        updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
-    class Formula(models.Model):
-        """
-        List of formula
-        """
+class Formula(models.Model):
+    """
+    List of formula
+    """
 
-        def __str__(self):
-            return self.name
+    def __str__(self):
+        return self.name
 
-        name = models.CharField(max_length=200, default="")
-        content = models.TextField()
-        status = models.BooleanField(default=False)
-        inorder_term = models.TextField(max_length=1024, null=True, blank=True)
-        sorted_term = models.TextField(max_length=1024, null=True, blank=True)
-        structure_term = models.TextField(max_length=1024, null=True, blank=True)
-        constant_term = models.TextField(max_length=1024, null=True, blank=True)
-        variable_term = models.TextField(max_length=1024, null=True, blank=True)
-        is_used = models.BooleanField(default=True)
+    name = models.CharField(max_length=200, default="")
+    content = models.TextField()
+    status = models.BooleanField(default=False)
+    inorder_term = models.TextField(max_length=1024, null=True, blank=True)
+    sorted_term = models.TextField(max_length=1024, null=True, blank=True)
+    structure_term = models.TextField(max_length=1024, null=True, blank=True)
+    constant_term = models.TextField(max_length=1024, null=True, blank=True)
+    variable_term = models.TextField(max_length=1024, null=True, blank=True)
+    is_used = models.BooleanField(default=True)
 
-        question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
 
-    class FormulaIndex(models.Model):
-        """
-        List of Formula Indices
-        """
-        indexkey = models.CharField(primary_key=True, max_length=255)
-        formulas = models.ManyToManyField(Formula)
-        df = models.PositiveIntegerField('frequency', default=1, blank=True)
+class FormulaIndex(models.Model):
+    """
+    List of Formula Indices
+    """
+    indexkey = models.CharField(primary_key=True, max_length=255)
+    formulas = models.ManyToManyField(Formula)
+    df = models.PositiveIntegerField('frequency', default=1, blank=True)
 
-    class AskedQuestion(models.Model):
-        """
-        List of questions asked by students
-        """
-        title = models.CharField(max_length=200, default="")
-        content = RichTextUploadingField(default='')
-        number_views = models.PositiveIntegerField(default=0)
-        tags = models.ManyToManyField(Tag)
+class AskedQuestion(models.Model):
+    """
+    List of questions asked by students
+    """
+    title = models.CharField(max_length=200, default="")
+    content = RichTextUploadingField(default='')
+    number_views = models.PositiveIntegerField(default=0)
+    tags = models.ManyToManyField(Tag)
 
-        topic = models.ForeignKey(Topic, on_delete=models.CASCADE, null=True)
-        user = models.ForeignKey(User, on_delete=models.CASCADE)
+    topic = models.ForeignKey(Topic, on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
-        created_at = models.DateTimeField(auto_now_add=True)
-        updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
-        def get_answers(self):
-            return AnswerAskedQuestion.objects.filter(asked_question=self)
+    def get_answers(self):
+        return AnswerAskedQuestion.objects.filter(asked_question=self)
 
-    class AnswerAskedQuestion(models.Model):
-        """
-        List of answers of question by user
-        """
-        content = RichTextUploadingField()
+class AnswerAskedQuestion(models.Model):
+    """
+    List of answers of question by user
+    """
+    content = RichTextUploadingField()
 
-        user = models.ForeignKey(User, on_delete=models.CASCADE)
-        asked_question = models.ForeignKey(AskedQuestion, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    asked_question = models.ForeignKey(AskedQuestion, on_delete=models.CASCADE)
 
-        created_at = models.DateTimeField(auto_now_add=True)
-        updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
-    class PaperTest(models.Model):
-        """
-        List of PaperTest
-        """
-        name = models.CharField(max_length=255)
-        total_completion_time = models.IntegerField(default=60)
-        difficulty_degree = models.CharField(max_length=1,
-                                             choices=DIFFICULTIES,
-                                             default="3")
-        average_difficulty_degree = models.FloatField(default=1.0)
-        number_of_questions = models.IntegerField(default=5)
-        marks = models.IntegerField(default=0)
+class PaperTest(models.Model):
+    """
+    List of PaperTest
+    """
+    name = models.CharField(max_length=255)
+    total_completion_time = models.IntegerField(default=60)
+    difficulty_degree = models.CharField(max_length=1,
+                                         choices=DIFFICULTIES,
+                                         default="3")
+    average_difficulty_degree = models.FloatField(default=1.0)
+    number_of_questions = models.IntegerField(default=5)
+    marks = models.IntegerField(default=0)
 
-        user = models.ForeignKey(User, on_delete=models.CASCADE)
-        questions = models.ManyToManyField(Question)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    questions = models.ManyToManyField(Question)
 
-        created_at = models.DateTimeField(auto_now_add=True)
-        updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
-        def __str__(self):
-            return self.name
+    def __str__(self):
+        return self.name
 class PracticeSubmission(models.Model):
     """
     List of Submission per Practice Test by each student
