@@ -10,6 +10,20 @@
     <!-- semantic ui -->
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'semanticui/semantic.css' %}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.css"/>
+    <script src="{% static 'js/jquery-3.2.1.js'%}" type= "text/javascript"></script>
+    <script src="{% static 'semanticui/semantic.js' %}" type = "text/javascript"></script>
+    <script type="text/javascript">
+        $('.message .close')
+      .on('click', function() {
+        $(this)
+          .closest('.message')
+          .transition('fade')
+        ;
+      })
+    ;
+    </script>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.js"></script>
 
     <title>Math Practice System</title>
 </head>
@@ -45,18 +59,7 @@
 
 </div>
   <!-- Put it below to make sure page load first, speed up render, prevent unresponsive stalls -->
-  <script src="{% static 'js/jquery-3.2.1.js'%}" type= "text/javascript"></script>
-  <script src="{% static 'semanticui/semantic.js' %}" type = "text/javascript"></script>
-  <script type="text/javascript">
-      $('.message .close')
-    .on('click', function() {
-      $(this)
-        .closest('.message')
-        .transition('fade')
-      ;
-    })
-  ;
-  </script>
+
 </body>
 
 </html>

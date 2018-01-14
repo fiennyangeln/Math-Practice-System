@@ -10,12 +10,18 @@ from django.contrib.auth.views import LoginView
 
 urlpatterns = [
     url(r'^$', BaseView.log_in, name="default"),
+
+    # Authentication
     url(r'^login/$',BaseView.log_in, name="students_login"),
     url(r'^logout/$',BaseView.log_out, name="students_logout"),
     url (r'^register/$',BaseView.register,name="students_register"),
+
+
     url(r'^home/$', BaseView.dashboard, name="students_home"),
     url(r'^switch_edu/(?P<edu_id>[0-9]+)/$', BaseView.switch_edu, name="students_switchedu"),
     url(r'^switch_edu/$', BaseView.switch_edu, name="students_switchedu"),
+
+
     url(r'^concepts/$', ConceptView.dashboard, name="students_concept"),
     url(r'^search/$', SearchView.dashboard, name ="students_search"),
     url(r'^exercise/$', ExerciseView.dashboard, name ="students_exercise"),
