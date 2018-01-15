@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^concepts/$', ConceptView.dashboard, name="students_concept"),
     url(r'^search/$', SearchView.dashboard, name ="students_search"),
     url(r'^exercise/$', ExerciseView.dashboard, name ="students_exercise"),
+    url(r'^try_exercise/(?P<question_id>[0-9]+)/$', ExerciseView.try_exercise, name="students_exercise_try"),
     url(r'^practice/$', PracticeView.dashboard, name="students_practice"),
     url(r'^qa/$', BaseView.qa, name="students_qa"),
     url(r'^paper/$', PaperView.dashboard, name ="students_paper"),

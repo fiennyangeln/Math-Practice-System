@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from webmodels.models import *
 class ExerciseView():
     def dashboard(request):
-        param={'edu_level':EducationLevel.objects.all()}
+        param={'edu_level':EducationLevel.objects.all(), 'questions': Question.objects.all()}
         print (request.session.get('edu_id'))
         return render(request,'exercise/index.html', param)
 
