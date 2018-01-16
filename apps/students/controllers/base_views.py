@@ -24,7 +24,6 @@ class BaseView():
         return HttpResponseRedirect('http://155.69.150.211:8001/')
 
     def log_in(request):
-
         if (request.user.is_authenticated):
             return redirect('/students/home')
         else:
@@ -35,9 +34,11 @@ class BaseView():
             form = UserCreationForm(request.POST)
             # save user
             if form.is_valid():
-                form.save()
+                user = form.save()
                 messages.add_message(request, messages.SUCCESS, "User created successfully, Please Login")
                 # TODO : does user needs to be superuser/staff
+                user_permission = UserPermission(owner=user, is_teacher=False)
+                user_permission.save()
                 return redirect('/students/login')
         else:
             form = UserCreationForm()
