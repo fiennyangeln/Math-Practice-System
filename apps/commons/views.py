@@ -1,14 +1,85 @@
 from django.shortcuts import render
 import re,json
+from webmodels.models import *
 from django.http import HttpResponse
+from apps.commons.utilities import answer_checker
 class ApiViews():
     def check_answer(request):
-        result=dict()
-        result['result']=True
-        response = json.dumps(result)
-        return HttpResponse(response,content_type='application/json')
 
-# Create your views here.
+        result=dict()
+        result['result']=False
+        if request.method == 'POST':
+            data = json.loads(request.body.decode("UTF-8"))
+            if (data['type'] == 'q'):
+                question_id = data['id']
+                question = Question.objects.get(pk=question_id)
+                # data that is needed
+                model_answer_content = question.answer
+                topic = question.concept.topic.name
+                answer_type = question.respone_type
+
+            else:
+                answerpart_id = data['id']
+                answer_part = AnswerPart.objects.get(pk=answerpart_id)
+                subpart_no = data['subpart_no']
+                # data that is needed
+                topic = answer_part.question.concept.topic.name
+                if subpart_no == 0 :
+                    model_answer_content = answer_part.part_content
+                    answer_type = asnwer_part.part_respone_type
+                elif subpart_no == 1 :
+                    model_answer_content = answer_part.subpart_name_1
+                    answer_type = answer_part.respone_type_1
+                elif subpart_no == 2 :
+                    model_answer_content = answer_part.subpart_name_2
+                    answer_type = answer_part.respone_type_2
+                elif subpart_no == 3 :
+                    model_answer_content = answer_part.subpart_name_3
+                    answer_type = answer_part.respone_type_3
+                else:
+                    model_answer_content = answer_part.subpart_name_4
+                    answer_type = answer_part.respone_type_4
+
+
+            # name inconsistency
+            if answer_type == "Numerical":
+                answer_type = "Numerical"
+            elif answer_type == "EXPRESSION":
+                answer_type = "Expression"
+
+            # answer initially also contain the question equation, so we need to separate it
+            # example answer_content = '$\\frac{dy}{dx}$ = \"15x^4-6x^2+4\"'
+            # after the process will return only the one after equal sign
+            model_answer_list = extract_answers(model_answer_content)
+
+            # for trigon proof there might be important_step
+            if topic == "Trigonometry" and answer_type == "Prove":
+                if len(model_answer_list) == 1:
+                    correct_answer = {'answer': model_answer_list[0]}
+                else:
+                    correct_answer = {
+                        'answer': model_answer_list[0],
+                        'important_step': model_answer_list[1]}
+            else:
+                model_answer = "|".join(model_answer_list)
+                correct_answer = {'answer': model_answer}
+            user_answer = {'answer': answer}
+            # TODO: Process wrong step
+            answer_correctness, wrong_step = answer_checker.check(
+                correct_answer, user_answer, topic=topic, answer_type=answer_type)
+            if data['type'] == 'q':
+                result['type'] = 'q'
+                result['id'] = question_id
+            else:
+                result['type'] = 'a'
+                result['id'] = answerpart_id
+                result['subpart_no'] = subpart_no
+            result['result'] = answer_correctness
+        response = json.dumps(result)
+        return HttpResponse(
+            response,
+            content_type='application/json')
+
 def format_answer_box(question):
     if question.answer != " ":
         formatted_answer = substitute_answer_with_box(question.id, None, question.respone_type, question.answer, topic=question.concept.topic.name, has_subpart=False)

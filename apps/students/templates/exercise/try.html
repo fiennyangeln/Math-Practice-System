@@ -96,4 +96,15 @@
 <script type = "text/javascript" src="{% static 'js/activate_mathquill.js' %}"></script>
 <script type = "text/javascript" src="{% static 'js/jquery.cookie.js' %}"></script>
 <script type = "text/javascript" src="{% static 'js/check_answer.js' %}"></script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        showProcessingMessages: false,
+        tex2jax: { inlineMath: [['$','$'],['\\(','\\)']] }
+    });
+</script>
+
 {% endblock %}

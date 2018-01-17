@@ -68,15 +68,20 @@ function clear_answer()
   $('#hidden-1').val('');
   $('#hidden-2').val('');
 };
-function display_result(result){
-  var paragraph = document.getElementById("result");
-  if (result){
-      paragraph.innerHTML = "<p>True</p>";
-  }
-  else {
-      paragraph.innerHTML = "<p>It is a two different element</p>";
-  }
+function display_answer_result(id, subpart_no, result, has_part) {
+    reset_answer_result(id, subpart_no, has_part);
+    if (has_part === false) {
+        var answer_result_component = document.getElementById("answer_result-q-" + id);
+    } else {
+        var answer_result_component = document.getElementById("answer_result-" + id + "-" + subpart_no);
+    }
+    if (result) {
+        answer_result_component.innerHTML = "Right";
+    } else {
+        answer_result_component.innerHTML = "Wrong";
+    }
 };
+
 
 function display_error(error){
   console.log(error);
