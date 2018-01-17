@@ -5,9 +5,9 @@ from django.http import HttpResponse
 from apps.commons.utilities import answer_checker
 class ApiViews():
     def check_answer(request):
-
         result=dict()
         result['result']=False
+        print("reach the api views")
         if request.method == 'POST':
             data = json.loads(request.body.decode("UTF-8"))
             if (data['type'] == 'q'):
@@ -40,7 +40,7 @@ class ApiViews():
                     model_answer_content = answer_part.subpart_name_4
                     answer_type = answer_part.respone_type_4
 
-
+            answer = data['answer']
             # name inconsistency
             if answer_type == "Numerical":
                 answer_type = "Numerical"
@@ -192,3 +192,8 @@ def substitute_answer_with_box(answerpart_id, subpart_no, answer_type, original_
         # Substitute the answer with HTML tag (process each sub_part one by one)
         content = output_HTML_tag
     return content
+
+def extract_answers(content):
+    """Extract answer fields in a string and return a list"""
+    fields = re.findall(r'"(.*?)"', content)
+    return fields
