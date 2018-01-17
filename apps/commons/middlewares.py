@@ -8,6 +8,8 @@ def is_skip_auth(request):
         if (request.path == url):
             print("is_skip_auth=True")
             return True
+    if (request.path.startswith(API_URL)):
+        return True
     return False
 
 class AuthMiddleware:

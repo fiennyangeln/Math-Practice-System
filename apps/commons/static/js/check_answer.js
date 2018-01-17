@@ -1,15 +1,35 @@
-function check_answer()
+function check_answer(id, subpart_no, has_part)
 {
-  var value ={};
+  var answer = {};
+  if (has_part === false) {
+        var answer_component_list = document.getElementsByName("answer-" + id + "-" + "q");
+        var answer_list = [];
 
-  var value_1 = document.getElementById("hidden-1").value;
-  var value_2 = document.getElementById("hidden-2").value;
-  value['value_1'] = value_1;
-  value['value_2'] = value_2;
+        for (var i = 0; i < answer_component_list.length; i++) {
+            answer_list.push(answer_component_list[i].value);
+        }
+        answer_list = answer_list.join("|");
+        answer['type'] = 'q';
+        answer['id'] = id;
+        answer['answer'] = answer_list;
+  } else {
+        var answer_component_list = document.getElementsByName("answer-" + id + "-" + subpart_no);
+        var answer_list = [];
+
+        for (var i = 0; i < answer_component_list.length; i++) {
+            answer_list.push(answer_component_list[i].value);
+        }
+        answer_list = answer_list.join("|");
+        answer['type'] = 'a';
+        answer['id'] = id;
+        answer['subpart_no'] = subpart_no;
+        answer['answer'] = answer_list;
+  }
+
   var csrftoken = $.cookie('csrftoken');
 
   function csrfSafeMethod(method) {
-    // these HTTP methods do not require CSRF protection
+      // these HTTP methods do not require CSRF protection
       return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
   }
 
@@ -19,22 +39,28 @@ function check_answer()
             xhr.setRequestHeader("X-CSRFToken", csrftoken);
       }
     }
-  });
-  console.log(JSON.stringify(value));
-  $.ajax('/check_answer/', {
+    });
+
+$.ajax('/api/check_answer/', {
       type : 'POST',
       contentType : 'application/json',
-      data : JSON.stringify(value),
-      success : function(data) {
-          var JSONresult = JSON.parse(JSON.stringify(data));
-          var result = JSONresult['result'];
-          display_result(result);
+      data : JSON.stringify(answer),
+      success: function(data) {
+        var JSONresult = JSON.parse(JSON.stringify(data));
+        var type = JSONresult['type'];
+        var id = JSONresult['id'];
+                var subpart_no = JSONresult['subpart_no'];
+        var result = JSONresult['result'];
+        if (type === 'q') {
+          display_answer_result(id, subpart_no, result, false);
+                } else {
+          display_answer_result(id, subpart_no, result);
+                }
+
       },
-      error : function(data, status, error){
-          display_error(error);
-    }
-  }
-);
+      error: function(data, status, error) {
+      }
+  });
 };
 function clear_answer()
 {

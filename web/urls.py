@@ -21,4 +21,5 @@ urlpatterns = [
 #    url(r'^dashboard/$',show_question, name='show_q'),
     url(r'^students/',include('apps.students.urls')),
     url(r'^admin/', admin.site.urls),
+    url(r'^api/',include('apps.commons.urls')),
 ]

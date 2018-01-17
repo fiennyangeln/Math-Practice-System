@@ -7,6 +7,7 @@ TEACHERS_ACTION = '/teachers/'
 STUDENTS_ACTION = '/students/'
 
 STATIC_URL = '/static/'
+API_URL = '/api/'
 SKIP_AUTH_URL = [BASE_URL,
                 STUDENTS_LOGIN_URL,
                 STUDENTS_REGISTER_URL,

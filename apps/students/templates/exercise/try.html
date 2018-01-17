@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+{% csrf_token %}
+<hr> {{ question.content | safe }} {% for tag in question.tags.all %}
+<a class="bg-info" href="">{{ tag.name }}</a> &nbsp; {% endfor %}
+
+<hr>
+{% if question.answer != "" %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <p>
+            {{ question.answer | safe }}
+        </p>
+
+        <p>
+            <strong>
+                <span class="text-danger" id="answer_result-q-{{ question.id }}" ></span>
+            </strong>
+        </p>
+
+        <input class="btn btn-default" type="button" value="Check answer" onclick="check_answer({{ question.id }}, -1, false)">
+    </div>
+</div>
+{% else %}
+{% for answerpart in question.answer_parts %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        ( {{ answerpart.part_name }} )
+        <p>
+            {{ answerpart.part_content | safe }}
+        </p>
+
+        <p>
+            <strong>
+                <span class="text-danger" id="answer_result-{{ answerpart.id }}-0" >
+                </span>
+            </strong>
+        </p>
+
+        <input class="btn btn-default" type="button" value="Check answer" onclick="check_answer({{ answerpart.id }}, 0)">
+    </div>
+    <div class="panel-body">
+        <ul class="nav nav-pills nav-stacked">
+            <li>
+                {% if answerpart.subpart_name_1 == "i" %} ( {{ answerpart.subpart_name_1 }} ) {{ answerpart.subpart_content_1 | safe }}
+                <p>
+                    <strong>
+                        <span id="answer_result-{{ answerpart.id }}-1" ></span>
+                    </strong>
+                <p/>
+                <input class="btn btn-default" type="button" value="Check answer" onclick="check_answer({{ answerpart.id }}, 1)"> {% endif %}
+            </li>
+            <li>
+                {% if answerpart.subpart_name_2 == "ii" %} ( {{ answerpart.subpart_name_2 }} ) {{ answerpart.subpart_content_2 | safe }}
+                <p>
+                    <strong>
+                        <span id="answer_result-{{ answerpart.id }}-2" ></span>
+                    </strong>
+                <p/>
+                <p>
+                    <input class="btn btn-default" type="button" value="Check answer" onclick="check_answer({{ answerpart.id }}, 2)">
+                </p>
+                {% endif %}
+            </li>
+            <li>
+                {% if answerpart.subpart_name_3 == "iii" %} ( {{ answerpart.subpart_name_3 }} ) {{ answerpart.subpart_content_3 | safe }}
+                <p>
+                    <strong>
+                        <span id="answer_result-{{ answerpart.id }}-3" ></span>
+                    </strong>
+                <p/>
+                <p>
+                    <input class="btn btn-default" type="button" value="Check answer" onclick="check_answer({{ answerpart.id }}, 3)">
+                </p>
+                {% endif %}
+            </li>
+            <li>
+                {% if answerpart.subpart_name_4 == "iv" %} ( {{ answerpart.subpart_name_4 }} ) {{ answerpart.subpart_content_4 | safe }}
+                <p>
+                    <strong>
+                        <span id="answer_result-{{ answerpart.id }}-4" ></span>
+                    </strong>
+                <p/>
+                <p>
+                    <input class="btn btn-default" type="button" value="Check answer" onclick="check_answer({{ answerpart.id }}, 4)">
+                </p>
+                {% endif %}
+            </li>
+        </ul>
+    </div>
+</div>
+{% endfor %} {% endif %}
+<link href="{% static 'mathquill-0.10.1/mathquill.css' %}" rel="stylesheet"></link>
+<script type = "text/javascript" src="{% static 'mathquill-0.10.1/mathquill.js' %}"></script>
+<script type = "text/javascript" src="{% static 'js/activate_mathquill.js' %}"></script>
+<script type = "text/javascript" src="{% static 'js/jquery.cookie.js' %}"></script>
+<script type = "text/javascript" src="{% static 'js/check_answer.js' %}"></script>
+{% endblock %}
