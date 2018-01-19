@@ -4,9 +4,7 @@ from django.shortcuts import render, redirect
 
 def is_skip_auth(request):
     for url in SKIP_AUTH_URL:
-        print ("in skip_auth"+request.path+ " " + url)
         if (request.path == url):
-            print("is_skip_auth=True")
             return True
     if (request.path.startswith(API_URL)):
         return True
@@ -25,14 +23,11 @@ class AuthMiddleware:
         # the view is called.
         if not is_skip_auth(request):
             if request.user.is_authenticated:
-                print("authenticated user")
                 user_permission = UserPermission.objects.filter(owner=(request.user)).first()
 
                 if (user_permission is not None):
-                    print ("user_permission not none")
                     if user_permission.is_teacher and not request.path.startswith(TEACHERS_ACTION):
                         return redirect(BASE_URL)
             else:
                 return redirect(BASE_URL)
-        print("returnign response")
         return response

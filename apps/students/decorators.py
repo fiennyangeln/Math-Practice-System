@@ -1,3 +1,6 @@
+from django.contrib import messages
+from django.http import HttpResponseRedirect
+
 def edu_level_selected(function):
     def wrap(request, *args, **kwargs):
         if 'edu_id' in request.session:
