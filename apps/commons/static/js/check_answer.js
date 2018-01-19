@@ -86,6 +86,7 @@ function display_answer_result(id, subpart_no, result, has_part) {
 function display_error(error){
   console.log(error);
 };
+
 function reset_answer_result(id, subpart_no, has_part) {
     if (has_part === false) {
         var answer_result_component = document.getElementById("answer_result-q-" + id);
