@@ -21,6 +21,5 @@ class ExerciseView():
     def try_exercise(request, question_id):
         question = Question.objects.get(id=question_id)
         question = format_answer_box(question)
-
         param = { 'question': question }
         return render(request, 'exercise/try.html', param)

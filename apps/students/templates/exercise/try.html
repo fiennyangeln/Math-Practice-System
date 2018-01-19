@@ -42,17 +42,20 @@
     </div>
     <div class="panel-body">
         <ul class="nav nav-pills nav-stacked">
+        {% if answerpart.subpart_name_1 == "i" %}
             <li>
-                {% if answerpart.subpart_name_1 == "i" %} ( {{ answerpart.subpart_name_1 }} ) {{ answerpart.subpart_content_1 | safe }}
+                 ( {{ answerpart.subpart_name_1 }} ) {{ answerpart.subpart_content_1 | safe }}
                 <p>
                     <strong>
                         <span id="answer_result-{{ answerpart.id }}-1" ></span>
                     </strong>
                 <p/>
-                <input class="btn btn-default" type="button" value="Check answer" onclick="check_answer({{ answerpart.id }}, 1)"> {% endif %}
+                <input class="btn btn-default" type="button" value="Check answer" onclick="check_answer({{ answerpart.id }}, 1)">
             </li>
+        {% endif %}
+        {% if answerpart.subpart_name_2 == "ii" %}
             <li>
-                {% if answerpart.subpart_name_2 == "ii" %} ( {{ answerpart.subpart_name_2 }} ) {{ answerpart.subpart_content_2 | safe }}
+                 ( {{ answerpart.subpart_name_2 }} ) {{ answerpart.subpart_content_2 | safe }}
                 <p>
                     <strong>
                         <span id="answer_result-{{ answerpart.id }}-2" ></span>
@@ -61,10 +64,12 @@
                 <p>
                     <input class="btn btn-default" type="button" value="Check answer" onclick="check_answer({{ answerpart.id }}, 2)">
                 </p>
-                {% endif %}
+
             </li>
+          {% endif %}
+          {% if answerpart.subpart_name_3 == "iii" %}
             <li>
-                {% if answerpart.subpart_name_3 == "iii" %} ( {{ answerpart.subpart_name_3 }} ) {{ answerpart.subpart_content_3 | safe }}
+                 ( {{ answerpart.subpart_name_3 }} ) {{ answerpart.subpart_content_3 | safe }}
                 <p>
                     <strong>
                         <span id="answer_result-{{ answerpart.id }}-3" ></span>
@@ -73,10 +78,12 @@
                 <p>
                     <input class="btn btn-default" type="button" value="Check answer" onclick="check_answer({{ answerpart.id }}, 3)">
                 </p>
-                {% endif %}
+
             </li>
+          {% endif %}
+          {% if answerpart.subpart_name_4 == "iv" %}
             <li>
-                {% if answerpart.subpart_name_4 == "iv" %} ( {{ answerpart.subpart_name_4 }} ) {{ answerpart.subpart_content_4 | safe }}
+                 ( {{ answerpart.subpart_name_4 }} ) {{ answerpart.subpart_content_4 | safe }}
                 <p>
                     <strong>
                         <span id="answer_result-{{ answerpart.id }}-4" ></span>
@@ -85,8 +92,9 @@
                 <p>
                     <input class="btn btn-default" type="button" value="Check answer" onclick="check_answer({{ answerpart.id }}, 4)">
                 </p>
-                {% endif %}
+
             </li>
+          {% endif %}
         </ul>
     </div>
 </div>

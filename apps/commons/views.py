@@ -7,7 +7,6 @@ class ApiViews():
     def check_answer(request):
         result=dict()
         result['result']=False
-        print("reach the api views")
         if request.method == 'POST':
             data = json.loads(request.body.decode("UTF-8"))
             if (data['type'] == 'q'):
@@ -26,7 +25,7 @@ class ApiViews():
                 topic = answer_part.question.concept.topic.name
                 if subpart_no == 0 :
                     model_answer_content = answer_part.part_content
-                    answer_type = asnwer_part.part_respone_type
+                    answer_type = answer_part.part_respone_type
                 elif subpart_no == 1 :
                     model_answer_content = answer_part.subpart_name_1
                     answer_type = answer_part.respone_type_1
@@ -81,7 +80,7 @@ class ApiViews():
             content_type='application/json')
 
 def format_answer_box(question):
-    if question.answer != " ":
+    if question.answer != " " and question.answer!="":
         formatted_answer = substitute_answer_with_box(question.id, None, question.respone_type, question.answer, topic=question.concept.topic.name, has_subpart=False)
         setattr(question, "answer", formatted_answer)
     else:
