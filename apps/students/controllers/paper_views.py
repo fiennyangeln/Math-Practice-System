@@ -49,17 +49,29 @@ class PaperView():
                                 average_difficulty_degree += (
                                     question.float_difficulty_level)
                                 total_marks += question.mark
-                    paper_test.mark = total_marks
-                    paper_test.number_of_questions = number_of_questions
-                    if (number_of_questions!=0):
-                        average_difficulty_degree = average_difficulty_degree/number_of_questions
-                    paper_test.average_difficulty_degree = round(average_difficulty_degree, 2)
+                paper_test.mark = total_marks
+                paper_test.number_of_questions = number_of_questions
+                if (number_of_questions!=0):
+                    average_difficulty_degree = average_difficulty_degree/number_of_questions
+                paper_test.average_difficulty_degree = round(average_difficulty_degree, 2)
+                paper_test.save()
 
-                    paper_test.save()
-
-                    return redirect('/students/paper/')
+                return redirect('/students/paper/')
 
 
         form = PaperCreationForm()
         param = {'form':form, 'topics': topics}
         return render(request,'paper/create.html',param)
+
+    @edu_level_selected
+    def specific_paper(request, paper_test_id):
+        # because django does not provide delete 
+        if request.method == 'POST':
+            PaperTest.objects.filter(pk=paper_test_id).delete()
+            messages.add_message(request,messages.SUCCESS,"PaperTest deleted successfully")
+            return redirect('/students/paper/')
+
+        paper_test = PaperTest.objects.get(pk=paper_test_id)
+        questions = paper_test.questions.all()
+        param = {'paper_test': paper_test, 'questions': questions}
+        return render(request,'paper/try.html',param)

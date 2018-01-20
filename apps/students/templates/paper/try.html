@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+<div class="well well-sm">
+  <h2 class="text-center">
+    <small class="text-uppercase"> {{ paper_test.name }} </small>
+  </h2>
+
+  <ul class="nav nav-stacked">
+    <li>
+      <strong> Total Completion Time: </strong>
+      <span class="pull-right">
+        {{ paper_test.total_completion_time }} minutes
+      </span>
+    </li>
+
+    <li>
+      <strong> Difficulty Degree: </strong>
+      <span class="pull-right">
+        <strong>
+          {{ paper_test.get_difficulty_degree_display }}
+        </strong>
+      </span>
+    </li>
+
+    <li>
+      <strong> Average Difficulty Degree: </strong>
+      <span class="pull-right">
+        <strong>
+          {{ paper_test.average_difficulty_degree }}
+        </strong>
+      </span>
+    </li>
+
+    <li>
+      <strong> Number of Questions: </strong>
+      <span class="pull-right">
+        {{ paper_test.number_of_questions }}
+      </span>
+    </li>
+
+    <li>
+      <strong> Total Marks: </strong>
+      <span class="pull-right">
+        {{ paper_test.marks }}
+      </span>
+    </li>
+
+    <li>
+      <strong> Last try: </strong>
+      <span class="pull-right">
+        {{ paper_test.id }} |last_try:request
+      </span>
+    </li>
+
+    <li>
+      <strong> Your Marks </strong>
+      <span class="pull-right">
+        {{ paper_test.id }} |last_try_score:request
+      </span>
+    </li>
+  </ul>
+</div>
+{% for question in questions  %}
+<div class="well well-lg">
+  <div class="row">
+    <div class="col-md-12">
+      <h4>
+        <a>
+          <span class='text-danger'> {{ question.concept.topic }} </span>
+            -
+          <span class='text-primary'> {{ question.concept }} </span>
+        </a>
+      </h4>
+
+      <h4> Difficulty:
+        <span>
+          {% for c in question.get_difficulty_level %}
+            <i class="star icon" style="color:#b38600"></i>
+          {% endfor %}
+        </span>
+      </h4>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <span class="text-success">
+        <i> {{ question.mark }} mark(s) </i>
+      </span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      {{ question.content|safe }}
+    </div>
+  </div>
+</div>
+{% endfor %}
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        showProcessingMessages: false,
+        tex2jax: { inlineMath: [['$','$'],['\\(','\\)']] }
+    });
+</script>
+{% endblock %}

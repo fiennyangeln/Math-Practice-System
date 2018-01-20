@@ -23,6 +23,7 @@ urlpatterns = [
 
     url(r'^paper/$', PaperView.dashboard, name ="students_paper"),
     url(r'^paper/create/$',PaperView.create_paper, name="students_paper_create"),
+    url(r'^paper/(?P<paper_test_id>[0-9]+)/$', PaperView.specific_paper, name="students_paper_specific"),
 
     url(r'^concepts/$', ConceptView.dashboard, name="students_concept"),
     url(r'^search/$', SearchView.dashboard, name ="students_search"),

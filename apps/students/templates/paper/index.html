@@ -35,34 +35,33 @@
         </strong>
         )
         {% for c in paper_test.get_difficulty_degree %}
-          <i class="fa fa-star" aria-hidden="true" style="color:#b38600"></i>
+          <i class="star icon" style="color:#b38600"></i>
         {% endfor %}
       </td>
       <td> {{ paper_test.number_of_questions }} </td>
       <td> {{ paper_test.marks }} </td>
       <td>
-        <ul class="list-inline pull-right">
-          <li>
-            <a href="/students/try_paper_test/{{ paper_test.id }}/">
-              View
+        <div class="ui icon buttons">
+            <a href="/students/paper/{{ paper_test.id }}/">
+              <button type="submit" class="ui icon button">
+                <i class="zoom icon"></i>
+              </button>
             </a>
-          </li>
-          <li>
-            <a href="/students/history/{{ paper_test.id }}/">
-              Result
-            </a>
-          </li>
-          <li>
-            <a href="/students/delete_paper_test/{{ paper_test.id }}/">
-              <i class="fa fa-trash" aria-hidden="true"></i>
-            </a>
-          </li>
-        </ul>
+            <form action="/students/paper/{{ paper_test.id }}/" method="post">
+              {% csrf_token %}
+              <button type="submit" class="ui icon button">
+                <i class="trash icon"></i>
+              </button>
+            </form>
+          </div>
       </td>
     </tr>
     {% endfor %}
   </tbody>
 </table>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
 <script type="text/javascript">
 $(document).ready( function () {
     $('#table_id').DataTable();
