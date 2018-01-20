@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+<a href="{% url 'students_paper_create' %}">
+  <div class="ui animated fade button" tabindex="0">
+  <div class="visible content">Create new paper</div>
+  <div class="hidden content">
+    <i class="book icon"></i>
+  </div>
+</div>
+</a>
+<table id="table_id" class="display" width="100%">
+  <thead>
+    <tr>
+      <th>No.</th>
+      <th>Name</th>
+      <th>Time</th>
+      <th>Difficulty Degree</th>
+      <th># Questions</th>
+      <th>Marks</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for paper_test in paper_tests %}
+    <tr>
+      <td> {{ forloop.counter }} </td>
+      <td> {{ paper_test.name }} </td>
+      <td> {{ paper_test.total_completion_time }} minute(s) </td>
+      <td>
+        (
+        <strong>
+          {{ paper_test.get_difficulty_degree_display }}
+        </strong>
+        )
+        {% for c in paper_test.get_difficulty_degree %}
+          <i class="fa fa-star" aria-hidden="true" style="color:#b38600"></i>
+        {% endfor %}
+      </td>
+      <td> {{ paper_test.number_of_questions }} </td>
+      <td> {{ paper_test.marks }} </td>
+      <td>
+        <ul class="list-inline pull-right">
+          <li>
+            <a href="/students/try_paper_test/{{ paper_test.id }}/">
+              View
+            </a>
+          </li>
+          <li>
+            <a href="/students/history/{{ paper_test.id }}/">
+              Result
+            </a>
+          </li>
+          <li>
+            <a href="/students/delete_paper_test/{{ paper_test.id }}/">
+              <i class="fa fa-trash" aria-hidden="true"></i>
+            </a>
+          </li>
+        </ul>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<script type="text/javascript">
+$(document).ready( function () {
+    $('#table_id').DataTable();
+} );
+</script>
+{% endblock body %}

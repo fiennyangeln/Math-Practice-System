@@ -21,6 +21,8 @@ urlpatterns = [
     url(r'^switch_edu/(?P<edu_id>[0-9]+)/$', BaseView.switch_edu, name="students_switchedu"),
     url(r'^switch_edu/$', BaseView.switch_edu, name="students_switchedu"),
 
+    url(r'^paper/$', PaperView.dashboard, name ="students_paper"),
+    url(r'^paper/create/$',PaperView.create_paper, name="students_paper_create"),
 
     url(r'^concepts/$', ConceptView.dashboard, name="students_concept"),
     url(r'^search/$', SearchView.dashboard, name ="students_search"),
@@ -28,7 +30,7 @@ urlpatterns = [
     url(r'^try_exercise/(?P<question_id>[0-9]+)/$', ExerciseView.try_exercise, name="students_exercise_try"),
     url(r'^practice/$', PracticeView.dashboard, name="students_practice"),
     url(r'^qa/$', BaseView.qa, name="students_qa"),
-    url(r'^paper/$', PaperView.dashboard, name ="students_paper"),
+
     url(r'^quiz/$', QuizView.dashboard, name="students_quiz"),
 
 ]

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block body %}
+{% load static %}
+<form action="{% url 'students_paper_create' %}" method = 'post'>
+<div class="ui form">
+{% csrf_token %}
+{{ form }}
+</div>
+<h4 class="ui dividing header">Question Allocation</h4>
+  <div class="ui equal width form">
+    <div class="fields">
+    {% for topic in topics %}
+    <div class="field">
+      <label>{{topic.name}}</label>
+      <div class="input-group">
+        <span class="input-group-addon" id="topic_{{topic.id}}_cb">
+          <input type="checkbox" name="topic_{{topic.id}}_cb"
+            class="topic_cb" checked>
+        </span>
+        <input class="form-control topics_num_questions"
+          type="number" min="1" max="20"
+          aria-describedby="topic_{{topic.id}}_cb"
+          name="topic_{{topic.id}}_num" value="1">
+      </div>
+    </div>
+    {% if forloop.counter|divisibleby:"3" and not forloop.last %}
+      </div>
+      <br>
+
+      <div class="fields">
+    {% endif %}
+  {% endfor %}
+  </div></div>
+  <br>
+
+<input type="submit" class="ui button" value="Create"></input>
+<a type='button' class="ui button" href="{% url 'students_paper' %}">Cancel</a>
+</form>
+{% endblock %}
